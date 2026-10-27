@@ -1,0 +1,640 @@
+{
+  "contract_version": "0.1",
+  "schema_kind": "csv-field-contract; not JSON Schema",
+  "synthetic": true,
+  "status": "draft_pending_small_sample_review",
+  "encoding": "UTF-8 without BOM",
+  "line_endings": "LF",
+  "delimiter": ",",
+  "null_representation": "",
+  "boolean_literals": [
+    "true",
+    "false"
+  ],
+  "timestamp_format": "UTC ISO8601 with Z",
+  "tables": {
+    "products": {
+      "file": "products.csv",
+      "primary_key": [
+        "product_id"
+      ],
+      "fields": [
+        {
+          "name": "product_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "product_name",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "product_revision",
+          "type": "string",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [],
+      "unique_keys": [],
+      "notes": []
+    },
+    "equipment": {
+      "file": "equipment.csv",
+      "primary_key": [
+        "equipment_id"
+      ],
+      "fields": [
+        {
+          "name": "equipment_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "equipment_name",
+          "type": "string",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [],
+      "unique_keys": [],
+      "notes": []
+    },
+    "fixtures": {
+      "file": "fixtures.csv",
+      "primary_key": [
+        "fixture_id"
+      ],
+      "fields": [
+        {
+          "name": "fixture_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "fixture_type",
+          "type": "string",
+          "nullable": false,
+          "enum": [
+            "BOARD"
+          ]
+        }
+      ],
+      "foreign_keys": [],
+      "unique_keys": [],
+      "notes": []
+    },
+    "lots": {
+      "file": "lots.csv",
+      "primary_key": [
+        "lot_id"
+      ],
+      "fields": [
+        {
+          "name": "lot_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "product_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "initial_quantity",
+          "type": "integer",
+          "nullable": false,
+          "minimum": 1
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "product_id",
+          "references": "products.product_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": []
+    },
+    "units": {
+      "file": "units.csv",
+      "primary_key": [
+        "unit_id"
+      ],
+      "fields": [
+        {
+          "name": "unit_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "lot_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "lot_id",
+          "references": "lots.lot_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": []
+    },
+    "fixture_bindings": {
+      "file": "fixture_bindings.csv",
+      "primary_key": [
+        "binding_id"
+      ],
+      "fields": [
+        {
+          "name": "binding_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "fixture_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "equipment_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "position_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "valid_from",
+          "type": "timestamp_utc",
+          "nullable": false
+        },
+        {
+          "name": "valid_to",
+          "type": "timestamp_utc",
+          "nullable": true
+        },
+        {
+          "name": "recorded_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "fixture_id",
+          "references": "fixtures.fixture_id"
+        },
+        {
+          "column": "equipment_id",
+          "references": "equipment.equipment_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": [
+        "Binding intervals are half-open; no fixture double location or occupied position overlap."
+      ]
+    },
+    "operations": {
+      "file": "operations.csv",
+      "primary_key": [
+        "operation_id"
+      ],
+      "fields": [
+        {
+          "name": "operation_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "lot_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "process_step",
+          "type": "string",
+          "nullable": false,
+          "enum": [
+            "TEST_A",
+            "TEST_B",
+            "TEST_C",
+            "PACK"
+          ]
+        },
+        {
+          "name": "equipment_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "track_in_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        },
+        {
+          "name": "track_out_at",
+          "type": "timestamp_utc",
+          "nullable": true
+        },
+        {
+          "name": "recorded_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "lot_id",
+          "references": "lots.lot_id"
+        },
+        {
+          "column": "equipment_id",
+          "references": "equipment.equipment_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": [
+        "track_out_at null means not complete; completed rows become visible at recorded_at. One operation covers the whole lot in v0.1."
+      ]
+    },
+    "test_requirements": {
+      "file": "test_requirements.csv",
+      "primary_key": [
+        "requirement_id"
+      ],
+      "fields": [
+        {
+          "name": "requirement_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "product_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "test_type",
+          "type": "string",
+          "nullable": false,
+          "enum": [
+            "TEST_A",
+            "TEST_B",
+            "TEST_C"
+          ]
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "effective_from",
+          "type": "timestamp_utc",
+          "nullable": false
+        },
+        {
+          "name": "effective_to",
+          "type": "timestamp_utc",
+          "nullable": true
+        },
+        {
+          "name": "max_age_seconds",
+          "type": "integer",
+          "nullable": true,
+          "minimum": 1
+        },
+        {
+          "name": "recorded_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "product_id",
+          "references": "products.product_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": [
+        "No overlapping effective requirement per product/test type in normal baseline. Null max age means no age limit in the simulation."
+      ]
+    },
+    "test_results": {
+      "file": "test_results.csv",
+      "primary_key": [
+        "test_record_id"
+      ],
+      "fields": [
+        {
+          "name": "test_record_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "test_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "version",
+          "type": "integer",
+          "nullable": false,
+          "minimum": 1
+        },
+        {
+          "name": "unit_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "test_type",
+          "type": "string",
+          "nullable": false,
+          "enum": [
+            "TEST_A",
+            "TEST_B",
+            "TEST_C"
+          ]
+        },
+        {
+          "name": "attempt_no",
+          "type": "integer",
+          "nullable": false,
+          "minimum": 1
+        },
+        {
+          "name": "operation_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "equipment_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "binding_id",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "started_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        },
+        {
+          "name": "completed_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        },
+        {
+          "name": "outcome",
+          "type": "string",
+          "nullable": false,
+          "enum": [
+            "PASS",
+            "FAIL",
+            "INVALID"
+          ]
+        },
+        {
+          "name": "recorded_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "unit_id",
+          "references": "units.unit_id"
+        },
+        {
+          "column": "operation_id",
+          "references": "operations.operation_id"
+        },
+        {
+          "column": "equipment_id",
+          "references": "equipment.equipment_id"
+        },
+        {
+          "column": "binding_id",
+          "references": "fixture_bindings.binding_id"
+        }
+      ],
+      "unique_keys": [
+        [
+          "test_id",
+          "version"
+        ]
+      ],
+      "notes": [
+        "unit_id/test_type/attempt_no immutable within test_id. Distinct test_ids have unique (unit_id,test_type,attempt_no); versions are not attempts."
+      ]
+    },
+    "sn_assignments": {
+      "file": "sn_assignments.csv",
+      "primary_key": [
+        "assignment_id"
+      ],
+      "fields": [
+        {
+          "name": "assignment_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "unit_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "sn",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "assigned_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        },
+        {
+          "name": "recorded_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "unit_id",
+          "references": "units.unit_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": [
+        "Normal baseline has one-to-one unit/SN mapping. Deliberate S09 violations must be listed exactly in evaluation and validation report, not silently accepted."
+      ]
+    },
+    "packaging_checks": {
+      "file": "packaging_checks.csv",
+      "primary_key": [
+        "check_id"
+      ],
+      "fields": [
+        {
+          "name": "check_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "unit_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "requested_sn",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "check_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "unit_id",
+          "references": "units.unit_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": [
+        "Request known at check_at. No expected verdict or hold state in input. Missing assignment does not require an orphan unit."
+      ]
+    },
+    "alarms": {
+      "file": "alarms.csv",
+      "primary_key": [
+        "alarm_id"
+      ],
+      "fields": [
+        {
+          "name": "alarm_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "equipment_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "nullable": false,
+          "enum": [
+            "EQUIPMENT",
+            "OPERATION",
+            "BINDING",
+            "UNIT"
+          ]
+        },
+        {
+          "name": "operation_id",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "binding_id",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "unit_id",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "alarm_code",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "started_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        },
+        {
+          "name": "ended_at",
+          "type": "timestamp_utc",
+          "nullable": true
+        },
+        {
+          "name": "recorded_at",
+          "type": "timestamp_utc",
+          "nullable": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "equipment_id",
+          "references": "equipment.equipment_id"
+        },
+        {
+          "column": "operation_id",
+          "references": "operations.operation_id"
+        },
+        {
+          "column": "binding_id",
+          "references": "fixture_bindings.binding_id"
+        },
+        {
+          "column": "unit_id",
+          "references": "units.unit_id"
+        }
+      ],
+      "unique_keys": [],
+      "notes": [
+        "scope determines minimum required nonnull linkage: OPERATION requires operation_id; BINDING requires binding_id; UNIT requires unit_id. EQUIPMENT may omit all finer IDs; device alarm is not unit-level causal proof."
+      ]
+    }
+  },
+  "raw_delivery": {
+    "file": "raw/test_result_deliveries.jsonl",
+    "fields": [
+      "delivery_id",
+      "received_at",
+      "test_record_id",
+      "payload"
+    ],
+    "payload": "Object matching the referenced business test_results.csv row, integers and booleans encoded as JSON native types; timestamps/IDs strings; null actual null.",
+    "deduplication_key": "test_record_id"
+  },
+  "global_constraints": [
+    "All nonnull foreign keys must resolve.",
+    "Timestamps parse as UTC; completed_at >= started_at and recorded_at >= completed_at for test versions.",
+    "Lot quantity equals count of units; unit created_at >= lot created_at.",
+    "Test operation process_step == test_type, test equipment == operation equipment, unit lot == operation lot.",
+    "For completed operations track_in_at <= track_out_at <= recorded_at. Test interval must fit its operation; missing results do not mean pass.",
+    "Binding must be visible and cover the test interval. Do not join using current location.",
+    "Requirement effective_from and recorded_at must both be <= check_at.",
+    "Each intentional anomaly must have a precise evaluation record; unexpected violations fail validation."
+  ]
+}

@@ -1,0 +1,5 @@
+# Snapshot manifests and contract bundles identify exact file bytes.
+# Preserve those bytes on checkout, including on Windows with autocrlf enabled.
+* -text
+*.jpg binary
+*.png binary

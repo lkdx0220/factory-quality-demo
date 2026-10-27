@@ -1,0 +1,18 @@
+{
+  "version": "fictional-operation-inventory-1",
+  "kind": "closed_fictional_world",
+  "producer": "controlled-demo-scenario",
+  "semantics": "Only the explicitly enumerated fictional LOT/operation records exist in this scenario. Visibility uses recorded_at and track_in_at <= as_of; late records are intentionally unknown before recorded_at. This is not a real-source ingestion watermark or a quality assertion.",
+  "data_digest": "d50bf11cd7456f09af84e49df36fa778ae293a7658cc17243acddfe5ee46c240",
+  "manifest_digest": "ade7f8ea3f788ee049712f1ac7e3740f9b66060d0242be0beb716b8f926a13b1",
+  "inventory": {
+    "LOT-0001": ["OP-0001", "OP-0002", "OP-0007", "OP-0012"],
+    "LOT-0002": ["OP-0003", "OP-0004", "OP-0006", "OP-0009"],
+    "LOT-0003": ["OP-0005", "OP-0010", "OP-0011"],
+    "LOT-0004": ["OP-0008", "OP-0013", "OP-0014"]
+  },
+  "sources": {
+    "lots": {"history_from": "2026-09-01T00:00:00Z", "recorded_through": "2026-09-11T23:59:59Z", "history_retained": true},
+    "operations": {"history_from": "2026-09-01T00:00:00Z", "recorded_through": "2026-09-11T23:59:59Z", "history_retained": true}
+  }
+}

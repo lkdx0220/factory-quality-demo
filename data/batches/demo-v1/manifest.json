@@ -1,0 +1,36 @@
+{
+  "batch_id": "demo-v1",
+  "status": "complete",
+  "contract_version": "public-demo-1",
+  "synthetic_notice": "All identities, events, test stages and rules are fictional demonstration data.",
+  "counts": {
+    "products": 2,
+    "equipment": 4,
+    "fixtures": 4,
+    "lots": 4,
+    "units": 40,
+    "fixture_bindings": 5,
+    "operations": 14,
+    "test_requirements": 7,
+    "test_results": 107,
+    "sn_assignments": 40,
+    "packaging_checks": 22,
+    "alarms": 5,
+    "deliveries": 113
+  },
+  "files_sha256": {
+    "business/alarms.csv": "80f6f8246a40857f80c07c1b5aa00eb7ead48c4c3476d05c7eb89f08f2844c34",
+    "business/equipment.csv": "41f39a3cc5148a6a8f208ab636dd442bdcfa6cc8873d25cd73e88415fa1b9faf",
+    "business/fixture_bindings.csv": "0b768b0e08bd7fd6c6d6f6c10822437043ccd3f53e4008e03f6bea48755d856d",
+    "business/fixtures.csv": "43fffd918fe2cb9c390584d7040ddf7e3049bde656e7122312c858d685fdca26",
+    "business/lots.csv": "e6f0dc8ad8cac5c063d0c610d8eb7ce185f3c05f6d319f53b53a6a8f59c6fb45",
+    "business/operations.csv": "8bd0803f5fee36d77a3103480c99d4efd79425fbafce30603eb9d0e39a3bbc44",
+    "business/packaging_checks.csv": "5fa774ef48ba86d494b9e2caa7156dea0a5e4bee0cd65958914bbf8acf5005c1",
+    "business/products.csv": "49f5819984bab0e7d4918fc42196980bd93b8e403cdbf3534bb1b6a98ec1724d",
+    "business/sn_assignments.csv": "f32643bada7b7792b0ae03a93aa8af05e035b5b4559115bf3cd330c7a52f93ce",
+    "business/test_requirements.csv": "ffd49a4260d1212e4bb5063dbc8f611b04b1676caa5d292e21c64bf07bcd5bbf",
+    "business/test_results.csv": "ecfb212cbd560ecd1f4d1e73c7a888fd2553ba892e3278505245ac97293c7d99",
+    "business/units.csv": "35b8bf8d662aeb4ceba9371541cc346a557bb01e82d15933d1d0883ef99468d7",
+    "raw/test_result_deliveries.jsonl": "f4cd771b4c54b92e69c1caa06bb97cb31799fc8114baa90c6b45f0db1a8e3fe4"
+  }
+}

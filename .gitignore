@@ -1,0 +1,34 @@
+__pycache__/
+*.py[cod]
+local/
+.venv/
+.env
+.env.*
+audits/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.sqlite3
+*.sqlite3-*
+*.log
+# Local credentials and private exports.
+secrets/
+.private/
+*.pem
+*.key
+*.p12
+*.pfx
+*.har
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+# Private working material belongs outside the source snapshot.
+reports/
+handoff/
+review-work/
+review-bundle*/
+*.zip
